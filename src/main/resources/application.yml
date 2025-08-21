@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: namul
+  profiles:
+    active: local
