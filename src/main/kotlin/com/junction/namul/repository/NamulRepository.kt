@@ -1,6 +1,6 @@
 package com.junction.namul.repository
 
-import com.junction.namul.model.Namul
+import com.junction.namul.model.entity.Namul
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 

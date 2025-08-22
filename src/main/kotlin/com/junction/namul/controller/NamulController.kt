@@ -1,6 +1,6 @@
 package com.junction.namul.controller
 
-import com.junction.namul.model.Namul
+import com.junction.namul.model.entity.Namul
 import com.junction.namul.service.NamulService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
