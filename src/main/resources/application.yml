@@ -10,8 +10,4 @@ spring:
       database: ${MONGO_DB_NAME}
       username: ${MONGO_USERNAME}
       password: ${MONGO_PASSWORD}
-
-server:
-  forward-headers-strategy: framework
-  use-forward-headers: true
-  port: ${PORT:8080}
+      authentication-database: admin
