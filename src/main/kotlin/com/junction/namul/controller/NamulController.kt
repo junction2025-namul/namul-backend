@@ -13,11 +13,8 @@ class NamulController(
 ) {
     
     @PostMapping
-    fun save(@RequestBody namul: namulRequest): ResponseEntity<Namul> {
-        val savedNamul = namulService.save(Namul(
-            name = namul.name,
-            description = namul.description,
-        ))
+    fun save(@RequestBody namul: Namul): ResponseEntity<Namul> {
+        val savedNamul = namulService.save(namul)
         return ResponseEntity.ok(savedNamul)
     }
 
