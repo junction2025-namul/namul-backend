@@ -20,4 +20,10 @@ class NamulController(
         ))
         return ResponseEntity.ok(savedNamul)
     }
+
+    @GetMapping
+    fun findAll(): ResponseEntity<List<Namul>> {
+        val namuls = namulService.findAll()
+        return ResponseEntity.ok(namuls)
+    }
 }

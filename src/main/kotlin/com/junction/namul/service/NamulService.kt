@@ -13,4 +13,7 @@ class NamulService(
         return namulRepository.save(namul)
     }
     
+    fun findAll(): List<Namul> {
+        return namulRepository.findAll()
+    }
 }
