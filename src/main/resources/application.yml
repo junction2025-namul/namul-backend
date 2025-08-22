@@ -3,3 +3,10 @@ spring:
     name: namul
   profiles:
     active: local
+  data:
+    mongodb:
+      host: ${MONGO_HOST}
+      port: ${MONGO_PORT}
+      database: ${MONGO_DB_NAME}
+      username: ${MONGO_USERNAME}
+      password: ${MONGO_PASSWORD}
