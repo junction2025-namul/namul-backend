@@ -16,5 +16,4 @@ springdoc:
     enabled: true
 
 upstage:
-  api-key: ${UPSTAGE_API_KEY}
   base-url: https://api.upstage.ai/v1
