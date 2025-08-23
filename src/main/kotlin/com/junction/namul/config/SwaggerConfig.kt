@@ -20,7 +20,7 @@ class SwaggerConfig {
             )
             .servers(
                 listOf(
-                    Server().url("https://namul-backend-production-e240.up.railway.app")
+                    Server().url("https://namul-backend-production-7a51.up.railway.app")
                 )
             )
     }
