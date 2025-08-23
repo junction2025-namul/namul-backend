@@ -1,16 +1,19 @@
 spring:
   application:
     name: namul
+  ai:
+    openai:
+      api-key: ${API_KEY}
   profiles:
     active: local
   data:
     mongodb:
-      host: ${MONGO_HOST}
-      port: ${MONGO_PORT}
-      database: ${MONGO_DB_NAME}
-      username: ${MONGO_USERNAME}
-      password: ${MONGO_PASSWORD}
+      uri: ${MONGO_URI}
+      database: admin
       authentication-database: admin
+springdoc:
+  api-docs:
+    enabled: true
 
 upstage:
   api-key: ${UPSTAGE_API_KEY}
