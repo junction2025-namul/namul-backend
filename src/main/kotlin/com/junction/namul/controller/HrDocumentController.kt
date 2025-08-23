@@ -4,6 +4,7 @@ import com.junction.namul.model.dto.CategoryAndHDocument
 import com.junction.namul.model.dto.DocumentInfo
 import com.junction.namul.model.dto.UploadRequest
 import com.junction.namul.service.HrDocumentService
+import com.junction.namul.service.ParsingService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
@@ -16,7 +17,8 @@ import java.time.format.DateTimeFormatter
 @RequestMapping("/api/hr-documents")
 @Tag(name = "Management Document", description = "hr 매니저 문서 관리")
 class HrDocumentController(
-    private val hrDocumentService: HrDocumentService
+    private val hrDocumentService: HrDocumentService,
+    private val parsingService: ParsingService
 ) {
 
     @GetMapping
@@ -170,4 +172,9 @@ class HrDocumentController(
             ))
         }
     }
+
+    @PutMapping("/parsing")
+    fun documentParsing(
+        @RequestBody documentIds: List<String>
+    ):Boolean = parsingService.documentParsing(documentIds)
 }

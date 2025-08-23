@@ -2,7 +2,11 @@ package com.junction.namul.repository
 
 import com.junction.namul.model.document.Document
 import com.junction.namul.model.document.File
+import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.MongoTemplate
+import org.springframework.data.mongodb.core.query.Criteria
+import org.springframework.data.mongodb.core.query.Query
+import org.springframework.data.mongodb.core.query.Update
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -24,10 +28,19 @@ class HrDocumentRepository(
     
     fun findFilesByDocumentId(documentId: String): List<File> {
         return mongoTemplate.find(
-            org.springframework.data.mongodb.core.query.Query.query(
-                org.springframework.data.mongodb.core.query.Criteria.where("documentId").`is`(documentId)
+            Query.query(
+                Criteria.where("documentId").`is`(documentId)
             ),
             File::class.java
         )
+    }
+    
+    fun updateDocumentParsing(documentId: ObjectId, html: String, markdown: String) {
+        val query = Query.query(Criteria.where("id").`is`(documentId))
+        val update = Update()
+            .set("html", html)
+            .set("markdown", markdown)
+        
+        mongoTemplate.updateFirst(query, update, Document::class.java)
     }
 }

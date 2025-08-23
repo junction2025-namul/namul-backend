@@ -13,5 +13,7 @@ data class Document(
     val categoryId: ObjectId = ObjectId(),
     val title: String? = null,
     val isNewbieDoc: Boolean,
+    val html: String? = null,
+    val markdown: String? = null,
     val createdAt: LocalDateTime,
 )

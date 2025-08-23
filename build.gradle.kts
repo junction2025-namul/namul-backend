@@ -42,6 +42,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-logging")
     // spring ai
     implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter:1.0.0-M6")
+    // WebFlux WebClient for HTTP calls
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    // Kotlin Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    // Jackson Kotlin support
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     // 개발 편의성용 핫 리로딩 도구
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     // 통합 테스트 스타터 (JUnit, Mockito 포함)

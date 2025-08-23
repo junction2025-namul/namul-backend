@@ -17,3 +17,8 @@ data class UploadRequest(
     val isNewbieDoc: Boolean,
     val uploadedBy: String
 )
+
+data class DocumentParsing(
+    val html: String,
+    val markdown: String,
+)
