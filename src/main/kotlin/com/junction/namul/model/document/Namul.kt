@@ -1,4 +1,4 @@
-package com.junction.namul.model.entity
+package com.junction.namul.model.document
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document

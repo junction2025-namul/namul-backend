@@ -2,17 +2,22 @@ package com.junction.namul.controller
 
 import com.junction.namul.model.dto.CategoryAndHDocument
 import com.junction.namul.model.dto.DocumentInfo
+import com.junction.namul.model.dto.UploadRequest
+import com.junction.namul.service.HrDocumentService
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @RestController
 @RequestMapping("/api/hr-documents")
 @Tag(name = "Management Document", description = "hr 매니저 문서 관리")
-class HrDocumentController {
+class HrDocumentController(
+    private val hrDocumentService: HrDocumentService
+) {
 
     @GetMapping
     fun findHrDocuments() :List<CategoryAndHDocument>{
@@ -129,5 +134,40 @@ class HrDocumentController {
                 )
             )
         )
+    }
+
+    @PostMapping("/upload")
+    @Operation(summary = "PDF 파일 업로드", description = "문서를 먼저 저장한 후 PDF 파일을 업로드합니다")
+    fun fileUpload(
+        @RequestPart("file") file: MultipartFile,
+        @RequestPart request: UploadRequest,
+    ): ResponseEntity<Map<String, Any>> {
+        return try {
+            val document = hrDocumentService.createDocument(request)
+            val fileEntity = hrDocumentService.uploadFile(document.id, file, "test")
+            
+            ResponseEntity.ok(mapOf(
+                "success" to true,
+                "message" to "파일 업로드가 완료되었습니다",
+                "data" to mapOf(
+                    "documentId" to document.id.toString(),
+                    "fileId" to fileEntity.id.toString(),
+                    "fileName" to fileEntity.filename,
+                    "fileSize" to fileEntity.fileSize
+                )
+            ))
+        } catch (e: IllegalArgumentException) {
+            ResponseEntity.badRequest().body(mapOf(
+                "success" to false,
+                "message" to (e.message ?: "잘못된 요청입니다"),
+                "data" to emptyMap<String, Any>()
+            ))
+        } catch (e: Exception) {
+            ResponseEntity.internalServerError().body(mapOf(
+                "success" to false,
+                "message" to "서버 내부 오류가 발생했습니다",
+                "data" to emptyMap<String, Any>()
+            ))
+        }
     }
 }

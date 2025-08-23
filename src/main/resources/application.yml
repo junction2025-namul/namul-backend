@@ -1,6 +1,11 @@
 spring:
   application:
     name: namul
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 5000MB
+      enabled: true
   ai:
     openai:
       api-key: ${API_KEY}

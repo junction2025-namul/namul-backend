@@ -11,3 +11,9 @@ data class DocumentInfo(
     val isNewbieDoc: Boolean,
     val uploadDate: String,
 )
+
+data class UploadRequest(
+    val categoryId: String,
+    val isNewbieDoc: Boolean,
+    val uploadedBy: String
+)

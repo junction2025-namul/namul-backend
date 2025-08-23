@@ -1,6 +1,6 @@
 package com.junction.namul.service
 
-import com.junction.namul.model.entity.Namul
+import com.junction.namul.model.document.Namul
 import com.junction.namul.repository.NamulRepository
 import org.springframework.stereotype.Service
 
