@@ -25,6 +25,18 @@ data class DocumentParsing(
 
 data class DocumentDetail(
     val title: String,
+    val markdown: String,
+    val todo: List<String>
+)
+data class DocumentDetailJson(
+    val id: String,
+    val analysisJson: String? = null,
+)
+
+data class DocumentDetailWithId(
+    val id: String,
+    val title: String,
+    val markdown: String,
     val todo: List<String>
 )
 

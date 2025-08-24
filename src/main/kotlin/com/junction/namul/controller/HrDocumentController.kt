@@ -54,4 +54,5 @@ class HrDocumentController(
     fun documentParsing(
         @RequestBody documentIds: List<String>
     ): Boolean = parsingService.documentParsing(documentIds)
+
 }

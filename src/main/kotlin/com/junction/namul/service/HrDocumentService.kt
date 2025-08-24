@@ -33,7 +33,7 @@ class HrDocumentService(
     fun createDocument(req: UploadRequest): Document {
         val document = Document(
             categoryId = ObjectId(req.categoryId),
-            title = null,
+            title = "알수 없음",
             isNewbieDoc = req.isNewbieDoc,
             createdAt = LocalDateTime.now()
         )

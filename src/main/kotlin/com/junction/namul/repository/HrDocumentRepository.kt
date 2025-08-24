@@ -1,7 +1,11 @@
 package com.junction.namul.repository
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.junction.namul.model.document.Document
 import com.junction.namul.model.document.File
+import com.junction.namul.model.dto.DocumentDetail
+import com.junction.namul.model.dto.DocumentDetailJson
+import com.junction.namul.model.dto.DocumentDetailWithId
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class HrDocumentRepository(
     private val mongoTemplate: MongoTemplate,
+    private val objectMapper: ObjectMapper
 ) {
 
     fun saveDocument(document: Document): Document {
@@ -59,5 +64,28 @@ class HrDocumentRepository(
     
     fun findAllDocumentsGroupedByCategory(): List<Document> {
         return mongoTemplate.findAll(Document::class.java)
+    }
+    
+    fun findByIsNewbieTrue(): List<DocumentDetailWithId>? {
+        val query = Query.query(Criteria.where("isNewbieDoc").`is`(true))
+        val documents = mongoTemplate.find(query, Document::class.java)
+        val documentDetails = documents.map { DocumentDetailJson(it.id.toHexString(), it.analysisJson)  }
+        val result = documentDetails.mapNotNull { detail ->
+            try {
+                detail.analysisJson?.let { jsonString ->
+                    val parsed = objectMapper.readValue(jsonString, DocumentDetail::class.java)
+                    DocumentDetailWithId(
+                        id = detail.id,
+                        title = parsed.title,
+                        markdown = parsed.markdown,
+                        todo = parsed.todo
+                    )
+                }
+            } catch (e: Exception) {
+                null
+            }
+        }
+
+        return result
     }
 }
