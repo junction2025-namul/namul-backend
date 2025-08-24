@@ -35,12 +35,29 @@ class HrDocumentRepository(
         )
     }
     
-    fun updateDocumentParsing(documentId: ObjectId, html: String, markdown: String) {
+    fun updateDocumentParsing(documentId: ObjectId, html: String, markdown: String, analysisJson: String) {
         val query = Query.query(Criteria.where("id").`is`(documentId))
         val update = Update()
             .set("html", html)
             .set("markdown", markdown)
+            .set("analysisJson", analysisJson)
+
+        mongoTemplate.updateFirst(query, update, Document::class.java)
+    }
+    
+    fun updateDocumentTitle(documentId: ObjectId, title: String) {
+        val query = Query.query(Criteria.where("id").`is`(documentId))
+        val update = Update().set("title", title)
         
         mongoTemplate.updateFirst(query, update, Document::class.java)
+    }
+    
+    fun findDocumentByIds(documentIds: List<ObjectId>): List<Document> {
+        val query = Query.query(Criteria.where("id").`in`(documentIds))
+        return mongoTemplate.find(query, Document::class.java)
+    }
+    
+    fun findAllDocumentsGroupedByCategory(): List<Document> {
+        return mongoTemplate.findAll(Document::class.java)
     }
 }

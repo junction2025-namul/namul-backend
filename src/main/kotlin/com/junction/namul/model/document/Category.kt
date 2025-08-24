@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "categories")
 data class Category(
     val id: ObjectId? = ObjectId(),
-    val title: String,
+    val name: String,
 )

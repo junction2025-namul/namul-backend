@@ -22,3 +22,13 @@ data class DocumentParsing(
     val html: String,
     val markdown: String,
 )
+
+data class DocumentDetail(
+    val title: String,
+    val todo: List<String>
+)
+
+data class DocumentAnalysis(
+    val markdown: String,
+    val detail: List<DocumentDetail>
+)
